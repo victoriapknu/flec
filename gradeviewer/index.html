@@ -580,7 +580,7 @@
   <script>
     /* ───────────────────────── CONFIG ───────────────────────── */
 
-    // Current deployed Apps Script Web App URL.
+    //  deployed Apps Script Web App URL.
     // Replace this only if Google gives you a different deployment URL.
     const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxqnzmF2pV-Fiz4UcB4tH6tuwzB2WYRaYui_iU9NoOSGXXiVZaS2_A_Oj-kh3jEoe4N/exec';
 
@@ -612,8 +612,8 @@
     applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
 
     $('themeToggle').addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
+      const  = document.documentElement.getAttribute('data-theme');
+      const next =  === 'dark' ? 'light' : 'dark';
 
       localStorage.setItem(THEME_KEY, next);
       applyTheme(next);
@@ -711,7 +711,7 @@
       } catch (error) {
         throw new Error(
           'Request blocked or failed. First test the Apps Script URL directly with ?action=ping. ' +
-          'If ping works, hard-refresh this page and check that the endpoint URL is current.'
+          'If ping works, hard-refresh this page and check that the endpoint URL is .'
         );
       }
 
@@ -779,22 +779,22 @@
     }
 
     function renderGradeHero(data) {
-      const standing = data.currentStanding || {};
+      const standing = data.Standing || {};
       const letter = standing.letter || '—';
       const percent = formatPercent(standing.percent);
       const fraction = `${formatScore(standing.earned)} / ${formatScore(standing.available)}`;
 
       return `
-        <section class="grade-hero" aria-label="Current standing summary">
+        <section class="grade-hero" aria-label=" standing summary">
           <div>
-            <div class="grade-hero-label">Current Standing</div>
+            <div class="grade-hero-label">Current Points</div>
             <div class="grade-hero-score">${fraction}</div>
             <div class="grade-hero-sub">
-              ${escapeHtml(percent)} based on current possible points. Future final-exam points are not counted yet.
+              ${escapeHtml(percent)} based on current possible points.
             </div>
           </div>
           <div>
-            <div class="grade-hero-label">Current Letter</div>
+            <div class="grade-hero-label">Current Letter Grade</div>
             <div class="grade-hero-letter" style="color: ${gradeColor(letter)};">${escapeHtml(letter)}</div>
           </div>
         </section>
@@ -810,52 +810,34 @@
       return `
         <section class="summary-grid" aria-label="Grade dashboard cards">
           ${renderSummaryCard(
-            'Current Percent',
-            formatPercent(standing.percent),
-            cardClassForPercent(standing.percent),
-            'earned / current possible'
-          )}
-          ${renderSummaryCard(
-            'Attendance Score',
-            formatDashboardFraction(breakdown.attendance?.earned ?? metrics.attendanceScore, breakdown.attendance?.available ?? denominators.attendanceCurrent),
-            '',
-            'current denominator'
+            'Attendance',
+            formatDashboardFraction(breakdown.attendance?.earned ?? metrics.attendanceScore, breakdown.attendance?.available ?? denominators.attendanceCurrent)
           )}
           ${renderSummaryCard(
             'Participation',
-            formatDashboardFraction(breakdown.participation?.earned ?? metrics.participationScore, breakdown.participation?.available ?? denominators.participationCurrent),
-            '',
-            'current denominator'
+            formatDashboardFraction(breakdown.participation?.earned ?? metrics.participationScore, breakdown.participation?.available ?? denominators.participationCurrent)
           )}
           ${renderSummaryCard(
-            'Homework',
-            formatDashboardFraction(breakdown.homework?.earned, breakdown.homework?.available),
-            '',
-            'writing + book + review'
+            'Book HW',
+            formatDashboardFraction(metrics.bookHomeworkScore, denominators.bookHomeworkCurrent),
+            ''
+          )}
+          ${renderSummaryCard(
+            'Writing HW',
+            formatDashboardFraction(metrics.writingHomeworkScore, denominators.writingCurrent),
+            ''
           )}
           ${renderSummaryCard(
             'Quiz',
-            formatDashboardFraction(breakdown.quiz?.earned ?? metrics.quizScore, breakdown.quiz?.available ?? denominators.quizCurrent),
-            '',
-            'separate from homework'
+            formatDashboardFraction(breakdown.quiz?.earned ?? metrics.quizScore, breakdown.quiz?.available ?? denominators.quizCurrent)
           )}
           ${renderSummaryCard(
-            'Midterm',
-            formatDashboardFraction(breakdown.midterm?.earned ?? metrics.midtermScore, breakdown.midterm?.available ?? denominators.midtermMax),
-            '',
-            '/ current midterm max'
+            'Midterm Exam',
+            formatDashboardFraction(breakdown.midterm?.earned ?? metrics.midtermScore, breakdown.midterm?.available ?? denominators.midtermMax)
           )}
           ${renderSummaryCard(
-            'Final',
-            formatDashboardFraction(breakdown.final?.earned ?? metrics.finalScore, breakdown.final?.available ?? denominators.finalMax),
-            '',
-            'hidden until active'
-          )}
-          ${renderSummaryCard(
-            'Official Total',
-            `${formatScore(metrics.totalScore)} / 100`,
-            '',
-            'raw sheet total'
+            'Final Exam',
+            formatDashboardFraction(breakdown.final?.earned ?? metrics.finalScore, breakdown.final?.available ?? denominators.finalMax)
           )}
         </section>
       `;
