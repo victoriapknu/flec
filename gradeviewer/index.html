@@ -613,7 +613,7 @@
 
     $('themeToggle').addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme');
-      const next =  === 'dark' ? 'light' : 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
 
       localStorage.setItem(THEME_KEY, next);
       applyTheme(next);
