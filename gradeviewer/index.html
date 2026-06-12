@@ -779,7 +779,7 @@
     }
 
     function renderGradeHero(data) {
-      const standing = data.Standing || {};
+      const standing = data.currentStanding || {};
       const letter = standing.letter || '—';
       const percent = formatPercent(standing.percent);
       const fraction = `${formatScore(standing.earned)} / ${formatScore(standing.available)}`;
